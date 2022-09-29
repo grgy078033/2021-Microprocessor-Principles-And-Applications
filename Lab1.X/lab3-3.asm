@@ -1,0 +1,23 @@
+LIST p = 18f4520
+    #include<p18f4520.inC>
+	CONFIG OSC = INTIO67
+	CONFIG WDT = OFF
+	org 0x00
+start:
+    LFSR 0, 0x000
+    LFSR 1, 0x001
+    MOVLW 0x40
+    MOVWF INDF0
+    MOVLW 0x28
+    MOVWF INDF1
+    MOVF INDF0, 0
+    CLRF TRISA
+    CLRF TRISB
+    CLRF TRISC
+loop:
+    MOVFF INDF0, TRISA
+    MOVFF INDF1, TRISB
+    MOVF TRISA
+    
+continue:
+end

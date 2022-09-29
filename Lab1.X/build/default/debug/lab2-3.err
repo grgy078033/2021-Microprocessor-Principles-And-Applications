@@ -1,0 +1,5 @@
+Warning[205] C:\USERS\GRGY0\MPLABXPROJECTS\LAB1.X\LAB2-3.ASM 1 : Found directive in column 1. (LIST)
+Warning[207] C:\USERS\GRGY0\MPLABXPROJECTS\LAB1.X\LAB2-3.ASM 36 : Found label after column 1. (loop2)
+Warning[207] C:\USERS\GRGY0\MPLABXPROJECTS\LAB1.X\LAB2-3.ASM 42 : Found label after column 1. (NEXT)
+Warning[211] C:\USERS\GRGY0\MPLABXPROJECTS\LAB1.X\LAB2-3.ASM 49 : Extraneous arguments on the line.
+Warning[205] C:\USERS\GRGY0\MPLABXPROJECTS\LAB1.X\LAB2-3.ASM 52 : Found directive in column 1. (end)

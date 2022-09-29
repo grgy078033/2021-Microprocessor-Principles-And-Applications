@@ -1,0 +1,25 @@
+MPASM 5.84                          TEST.ASM   9-29-2021  21:53:45         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 
+                      00002 
+                      00003 
+Error[129]  : Expected (END)
+MPASM 5.84                          TEST.ASM   9-29-2021  21:53:45         PAGE  2
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+__18F4520                         00000001
+__DEBUG                           
+__MPLAB_DEBUGGER_SIMULATOR        1
+
+Errors   :     1
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

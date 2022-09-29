@@ -1,0 +1,146 @@
+
+
+Microchip MPLAB XC8 Assembler V2.32 build 20210201212658 
+                                                                                                           Thu Oct 28 18:07:28 2021
+
+
+     1                           	processor	18F4520
+     2                           	pagewidth 132
+     3                           	opt	flic
+     4                           	psect	udata_acs,global,class=COMRAM,space=1,delta=1,lowdata,noexec
+     5                           	psect	udata_bank0,global,class=BANK0,space=1,delta=1,lowdata,noexec
+     6                           	psect	udata_bank1,global,class=BANK1,space=1,delta=1,lowdata,noexec
+     7                           	psect	udata_bank2,global,class=BANK2,space=1,delta=1,lowdata,noexec
+     8                           	psect	udata_bank3,global,class=BANK3,space=1,delta=1,lowdata,noexec
+     9                           	psect	udata_bank4,global,class=BANK4,space=1,delta=1,lowdata,noexec
+    10                           	psect	udata_bank5,global,class=BANK5,space=1,delta=1,lowdata,noexec
+    11                           	psect	udata,global,class=RAM,space=1,delta=1,noexec
+    12                           	psect	code,global,reloc=2,class=CODE,delta=1
+    13                           	psect	data,global,reloc=2,class=CONST,delta=1,noexec
+    14                           	psect	edata,global,class=EEDATA,space=3,delta=2,noexec
+    15                           	psect	mytext,local,reloc=2,class=CODE,delta=1
+    16  0000                     
+    17                           	psect	edata
+    18  0000                     stk_offset	set	0
+    19  0000                     auto_size	set	0
+    20                           
+    21                           ; stack_auto defines a symbol /name/_offset which equates to the
+    22                           ; stack offset of the auto object in question
+    23  000000                     
+    24                           ; stack_param defines a symbol /name/_offset which equates to the
+    25                           ; stack offset of the parameter object in question
+    26  000000                     
+    27                           ; alloc_stack adjusts the SP to allocate space for auto objects
+    28                           ; it also links in to the btemp symbol so that can be used
+    29  000000                     
+    30                           ; restore_stack adjusts the SP to remove all auto and parameter
+    31                           ; objects from the stack prior to returning from a function
+    32  000000                     
+    33                           	psect	mytext
+    34  007F82                     _mysqrt:
+    35                           	callstack 0
+    36  007F82  C001 FF92          	movff	1,3986
+    37  007F86  6A93               	clrf	3987,c
+    38  007F88  C002 FF94          	movff	2,3988
+    39  007F8C  6A95               	clrf	3989,c
+    40  007F8E  0E08               	movlw	8
+    41  007F90  CFE8 FFAD          	movff	wreg,4013
+    42  007F94                     choose_divisor:
+    43  007F94  C001 FF92          	movff	1,3986
+    44  007F98  C002 FF94          	movff	2,3988
+    45  007F9C  0E08               	movlw	8
+    46  007F9E  CFE8 FFAD          	movff	wreg,4013
+    47  007FA2  6A95               	clrf	3989,c
+    48  007FA4  0E01               	movlw	1
+    49  007FA6  2693               	addwf	3987,f,c
+    50  007FA8  3692               	rlcf	3986,f,c
+    51  007FAA  4694               	rlncf	3988,f,c
+    52  007FAC  E302               	bnc	step1
+    53  007FAE  0E01               	movlw	1
+    54  007FB0  2694               	addwf	3988,f,c
+    55  007FB2                     step1:
+    56  007FB2  CF93 FFE8          	movff	3987,wreg
+    57  007FB6  5C94               	subwf	3988,w,c
+    58  007FB8  CFE8 FF94          	movff	wreg,3988
+    59  007FBC  E70B               	bnn	step2_2
+    60  007FBE  2493               	addwf	3987,w,c
+    61  007FC0  CFE8 FF94          	movff	wreg,3988
+    62  007FC4  3692               	rlcf	3986,f,c
+    63  007FC6  4694               	rlncf	3988,f,c
+    64  007FC8  0EFE               	movlw	254
+    65  007FCA  1692               	andwf	3986,f,c
+    66  007FCC  E310               	bnc	step3
+    67  007FCE  0E01               	movlw	1
+    68  007FD0  2694               	addwf	3988,f,c
+    69  007FD2  D00D               	goto	step3
+    70  007FD4                     step2_2:
+    71  007FD4  0E01               	movlw	1
+    72  007FD6  2695               	addwf	3989,f,c
+    73  007FD8  B095               	btfsc	3989,0,c
+    74  007FDA  A295               	btfss	3989,1,c
+    75  007FDC  D001               	goto	continue
+    76  007FDE  D7DA               	goto	choose_divisor
+    77  007FE0                     continue:
+    78  007FE0  3692               	rlcf	3986,f,c
+    79  007FE2  4694               	rlncf	3988,f,c
+    80  007FE4  E302               	bnc	set_rightmost_bit
+    81  007FE6  0E01               	movlw	1
+    82  007FE8  2694               	addwf	3988,f,c
+    83  007FEA                     set_rightmost_bit:
+    84  007FEA  0E01               	movlw	1
+    85  007FEC  2692               	addwf	3986,f,c
+    86  007FEE                     step3:
+    87  007FEE  2EAD               	decfsz	4013,f,c
+    88  007FF0  D7E0               	goto	step1
+    89  007FF2  4292               	rrncf	3986,f,c
+    90  007FF4  4294               	rrncf	3988,f,c
+    91  007FF6  CF92 F002          	movff	3986,2
+    92  007FFA  CF94 F001          	movff	3988,1
+    93  007FFE  0012               	return	
+    94                           tosu	equ	0xFFF
+    95                           tosh	equ	0xFFE
+    96                           tosl	equ	0xFFD
+    97                           stkptr	equ	0xFFC
+    98                           pclatu	equ	0xFFB
+    99                           pclath	equ	0xFFA
+   100                           pcl	equ	0xFF9
+   101                           tblptru	equ	0xFF8
+   102                           tblptrh	equ	0xFF7
+   103                           tblptrl	equ	0xFF6
+   104                           tablat	equ	0xFF5
+   105                           prodh	equ	0xFF4
+   106                           prodl	equ	0xFF3
+   107                           indf0	equ	0xFEF
+   108                           postinc0	equ	0xFEE
+   109                           postdec0	equ	0xFED
+   110                           preinc0	equ	0xFEC
+   111                           plusw0	equ	0xFEB
+   112                           fsr0h	equ	0xFEA
+   113                           fsr0l	equ	0xFE9
+   114                           wreg	equ	0xFE8
+   115                           indf1	equ	0xFE7
+   116                           postinc1	equ	0xFE6
+   117                           postdec1	equ	0xFE5
+   118                           preinc1	equ	0xFE4
+   119                           plusw1	equ	0xFE3
+   120                           fsr1h	equ	0xFE2
+   121                           fsr1l	equ	0xFE1
+   122                           bsr	equ	0xFE0
+   123                           indf2	equ	0xFDF
+   124                           postinc2	equ	0xFDE
+   125                           postdec2	equ	0xFDD
+   126                           preinc2	equ	0xFDC
+   127                           plusw2	equ	0xFDB
+   128                           fsr2h	equ	0xFDA
+   129                           fsr2l	equ	0xFD9
+   130                           status	equ	0xFD8
+
+
+Microchip Technology PIC18 Macro Assembler V2.32 build 20210201212658 
+Symbol Table                                                                                               Thu Oct 28 18:07:28 2021
+
+                        WREG 000FE8                         TRISA 000F92                         TRISB 000F93  
+                       TRISC 000F94                         TRISD 000F95                         TXREG 000FAD  
+                       step1 7FB2                         step3 7FEE                       isa$std 000001  
+                     _mysqrt 7F82                       step2_2 7FD4             set_rightmost_bit 7FEA  
+                    continue 7FE0                     isa$xinst 000000                choose_divisor 7F94  

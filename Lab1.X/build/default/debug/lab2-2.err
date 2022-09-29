@@ -1,0 +1,3 @@
+Warning[205] C:\USERS\GRGY0\MPLABXPROJECTS\LAB1.X\LAB2-2.ASM 1 : Found directive in column 1. (LIST)
+Warning[207] C:\USERS\GRGY0\MPLABXPROJECTS\LAB1.X\LAB2-2.ASM 52 : Found label after column 1. (loop3_2)
+Warning[205] C:\USERS\GRGY0\MPLABXPROJECTS\LAB1.X\LAB2-2.ASM 65 : Found directive in column 1. (end)

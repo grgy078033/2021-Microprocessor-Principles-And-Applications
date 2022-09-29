@@ -1,0 +1,4 @@
+Warning[205] C:\USERS\GRGY0\MPLABXPROJECTS\LAB1.X\LAB4-1.ASM 1 : Found directive in column 1. (LIST)
+Warning[207] C:\USERS\GRGY0\MPLABXPROJECTS\LAB1.X\LAB4-1.ASM 7 : Found label after column 1. (MOVLF)
+Warning[207] C:\USERS\GRGY0\MPLABXPROJECTS\LAB1.X\LAB4-1.ASM 12 : Found label after column 1. (RECT)
+Warning[205] C:\USERS\GRGY0\MPLABXPROJECTS\LAB1.X\LAB4-1.ASM 28 : Found directive in column 1. (end)
